@@ -1,3 +1,44 @@
-<h1>
-  {{title}}
-</h1>
+<article>
+  <md-card>
+    <md-card-title>
+      BLSearch
+    </md-card-title>
+    <md-card-subtitle>
+
+    </md-card-subtitle>
+    <md-card-content>
+      <md-select placeholder="チーム選択" [(ngModel)]="search.selectedTeam" (change)="search.onSelectTeam($event)">
+        <md-option *ngFor="let team of search.teams" [value]="team">
+          {{team}}
+        </md-option>
+      </md-select>
+
+      <h4>
+        <md-checkbox [(ngModel)]="search.showLocationFilter" (change)="search.onChangeFilter($event)">
+          会場で絞り込む
+        </md-checkbox>
+      </h4>
+      <md-card *ngIf="search.showLocationFilter">
+        <md-card-content>
+          <div *ngFor="let location of search.locationsWithArea">
+            <md-checkbox [(ngModel)]="search.selectedLocation[location]" (change)="search.onChangeLocation($event)">
+              {{location}}
+            </md-checkbox>
+          </div>
+        </md-card-content>
+      </md-card>
+
+      <md-list>
+        <md-list-item *ngFor="let game of search.result">
+          <h4 md-line>{{game.home}} - {{game.away}}</h4>
+          <p md-line>{{game.date}} ({{game.dayOfWeek}}) {{game.tipOff}}~ @ {{game.location}}（{{game.area}}）</p>
+          <p md-line>
+            <button md-button color="primary" (click)="search.onClickBuyTicket(game)">
+              チケット購入画面
+            </button>
+          </p>
+        </md-list-item>
+      </md-list>
+    </md-card-content>
+  </md-card>
+</article>
