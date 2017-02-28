@@ -1,10 +1,10 @@
 <article>
-  <md-card>
+  <md-card class="filter">
     <md-card-title>
-      BLSearch
+      BLGSearch
     </md-card-title>
     <md-card-subtitle>
-
+      BLGSearch は Bリーグの試合を検索できる非公式WEBサービスです。
     </md-card-subtitle>
     <md-card-content>
       <md-select placeholder="チーム選択" [(ngModel)]="search.selectedTeam" (change)="search.onSelectTeam($event)">
@@ -27,7 +27,14 @@
           </div>
         </md-card-content>
       </md-card>
+    </md-card-content>
+  </md-card>
 
+  <md-card>
+    <md-card-subtitle class="important-notice">
+      チケット購入の際は、必ず購入画面にて内容をお確かめの上、自己責任のもとでご購入ください。
+    </md-card-subtitle>
+    <md-card-content>
       <md-list>
         <md-list-item *ngFor="let game of search.result">
           <h4 md-line>{{game.home}} - {{game.away}}</h4>

@@ -1,3 +1,30 @@
+// 全体の外観
+md-card {
+  padding: 0;
+
+  &.filter {
+    md-card-title {
+      background: #505050;
+      color: #ffffff;
+      padding: 24px 16px;
+    }
+
+    md-card-subtitle {
+      margin: 0;
+      padding: 0px 16px;
+    }
+
+    md-card-content {
+      padding: 24px 16px;
+    }
+  }
+
+  .important-notice {
+    color: #f44336;
+    padding: 24px 16px;
+  }
+}
+
 md-select {
   margin-top: .8em !important;
   width: 100%;

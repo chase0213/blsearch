@@ -50,7 +50,9 @@ export class SearchService {
   }
 
   onClickBuyTicket(game) {
-    location.href = this._pathToTicketPage(game);
+    const href = this._pathToTicketPage(game);
+    console.info('visit: ' + href);
+    location.href = href;
   }
 
   onChangeFilter(event) {
@@ -84,7 +86,9 @@ export class SearchService {
   }
 
   private _pathToTicketPage(game) {
-    return DATA_2016_2017.ticketBaseUrl + DATA_2016_2017.shortNames[game.home] + '/' + game.date;
+    let date = game.date.split('/').join('');
+    const url = DATA_2016_2017.ticketBaseUrl + DATA_2016_2017.shortNames[game.home] + '/' + date;
+    return  url;
   }
 
   private _parseAll() {
