@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-
 @import '~@angular/material/core/theming/all-theme';
 // Plus imports for other components in your app.
 
@@ -27,4 +26,9 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+}
+
+* {
+  // スクロールをスムーズに
+  -webkit-overflow-scrolling: touch;
 }
