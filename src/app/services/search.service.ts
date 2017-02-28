@@ -4,11 +4,11 @@ import { DATA_2016_2017 } from '../data/data_2016-2017';
 @Injectable()
 export class SearchService {
 
+  areas: string[] = [];
   dates: string[] = [];
   teams: string[] = [];
-  areas: string[] = [];
   locations: string[] = [];
-  locationsWithArea: string[] = [];
+  locationsByArea: any = {};
   dayOfWeeks: string[] = ["月", "火", "水", "木", "金", "土", "日"];
 
   result: any = [];
@@ -94,20 +94,27 @@ export class SearchService {
   private _parseAll() {
     this.teams = Object.keys(DATA_2016_2017.shortNames);
 
-    let areaHash = {};
     let locationHash = {};
-    let locationsWithAreaHash = {};
+    let locationsByAreaHash = {};
     let dateHash = {};
     for (let game of DATA_2016_2017.games) {
-      areaHash[game.date] = true;
       locationHash[game.location] = true;
-      locationsWithAreaHash[game.location + '（' + game.area + '）'] = true
+      locationsByAreaHash[game.area] = locationsByAreaHash[game.area] || {};
+      locationsByAreaHash[game.area][game.location] = true;
       dateHash[game.date] = true;
     }
 
-    this.areas = Object.keys(areaHash);
+    this.areas = DATA_2016_2017.prefectures;
     this.locations = Object.keys(locationHash);
-    this.locationsWithArea = Object.keys(locationsWithAreaHash).sort();
+    for (let area of this.areas) {
+      // 会場が無い都道府県もあるので
+      let locations = [];
+      if (locationsByAreaHash[area]) {
+        locations = Object.keys(locationsByAreaHash[area]);
+      }
+
+      this.locationsByArea[area] = locations;
+    }
     this.dates = Object.keys(dateHash);
   }
 

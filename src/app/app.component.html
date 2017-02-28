@@ -18,15 +18,23 @@
           会場で絞り込む
         </md-checkbox>
       </h4>
-      <md-card *ngIf="search.showLocationFilter">
-        <md-card-content>
-          <div *ngFor="let location of search.locationsWithArea">
-            <md-checkbox [(ngModel)]="search.selectedLocation[location]" (change)="search.onChangeLocation($event)">
-              {{location}}
-            </md-checkbox>
-          </div>
-        </md-card-content>
-      </md-card>
+      <div *ngIf="search.showLocationFilter">
+        <div *ngFor="let area of search.areas">
+          <md-card *ngIf="search.locationsByArea[area].length > 0" class="area-card">
+            <md-card-subtitle>
+              {{area}}
+            </md-card-subtitle>
+
+            <md-card-content>
+              <div *ngFor="let location of search.locationsByArea[area]">
+                <md-checkbox [(ngModel)]="search.selectedLocation[location]" (change)="search.onChangeLocation($event)">
+                  {{location}}
+                </md-checkbox>
+              </div>
+            </md-card-content>
+          </md-card>
+        </div>
+      </div>
     </md-card-content>
   </md-card>
 
