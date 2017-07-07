@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DATA_2016_2017 } from '../data/data_2016-2017';
+import { DATA_2017_2018 } from '../data/data_2017-2018';
 
 @Injectable()
 export class SearchService {
@@ -31,7 +32,7 @@ export class SearchService {
     let month = ((new Date()).getMonth() + 1);
     let day = (new Date()).getDate();
 
-    this.result = DATA_2016_2017.games.filter(game => {
+    this.result = DATA_2017_2018.games.filter(game => {
       let dateArray = game.date.split("/");
       let gameYear = +dateArray[0];
       let gameMonth = +dateArray[1];
@@ -87,24 +88,24 @@ export class SearchService {
 
   private _pathToTicketPage(game) {
     let date = game.date.split('/').join('');
-    const url = DATA_2016_2017.ticketBaseUrl + DATA_2016_2017.shortNames[game.home] + '/' + date;
+    const url = DATA_2017_2018.ticketBaseUrl + DATA_2017_2018.shortNames[game.home] + '/' + date;
     return  url;
   }
 
   private _parseAll() {
-    this.teams = Object.keys(DATA_2016_2017.shortNames);
+    this.teams = Object.keys(DATA_2017_2018.shortNames);
 
     let locationHash = {};
     let locationsByAreaHash = {};
     let dateHash = {};
-    for (let game of DATA_2016_2017.games) {
+    for (let game of DATA_2017_2018.games) {
       locationHash[game.location] = true;
       locationsByAreaHash[game.area] = locationsByAreaHash[game.area] || {};
       locationsByAreaHash[game.area][game.location] = true;
       dateHash[game.date] = true;
     }
 
-    this.areas = DATA_2016_2017.prefectures;
+    this.areas = DATA_2017_2018.prefectures;
     this.locations = Object.keys(locationHash);
     for (let area of this.areas) {
       // 会場が無い都道府県もあるので
