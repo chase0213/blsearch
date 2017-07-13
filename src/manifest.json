@@ -41,7 +41,7 @@
   ],
   "theme_color": "#ffffff",
   "background_color": "#505050",
-  "start_url": "/index.html",
+  "start_url": "/blsearch",
   "display": "standalone",
   "orientation": "portrait"
 }
