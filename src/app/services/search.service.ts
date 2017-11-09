@@ -77,6 +77,7 @@ export class SearchService {
   }
 
   onSelectTeam(event) {
+    console.log(event);
     let keys = Object.keys(this.selectedLocation);
     let locations = keys.map(location => {
       if (this.selectedLocation[location]) {

@@ -1,0 +1,69 @@
+
+<article>
+  <mat-card class="filter">
+    <mat-card-title>
+      BLGSearch
+    </mat-card-title>
+    <mat-card-subtitle>
+      BLGSearch は Bリーグの試合を検索できる非公式WEBサービスです。
+    </mat-card-subtitle>
+    <mat-card-content>
+      <mat-select placeholder="チーム選択" [(ngModel)]="search.selectedTeam" (change)="search.onSelectTeam($event)">
+        <mat-option *ngFor="let team of search.teams" [value]="team">
+          {{team}}
+        </mat-option>
+      </mat-select>
+
+      <h4>
+        <mat-checkbox [(ngModel)]="search.showLocationFilter" (change)="search.onChangeFilter($event)">
+          会場で絞り込む
+        </mat-checkbox>
+      </h4>
+      <div *ngIf="search.showLocationFilter">
+        <div *ngFor="let area of search.areas">
+          <mat-card *ngIf="search.locationsByArea[area].length > 0" class="area-card">
+            <mat-card-subtitle>
+              {{area}}
+            </mat-card-subtitle>
+
+            <mat-card-content>
+              <div *ngFor="let location of search.locationsByArea[area]">
+                <mat-checkbox [(ngModel)]="search.selectedLocation[location]" (change)="search.onChangeLocation($event)">
+                  {{location}}
+                </mat-checkbox>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title class="important-notice">
+      チケット購入の際は、必ず購入画面にて内容をお確かめの上、自己責任のもとでご購入ください。
+    </mat-card-title>
+    <mat-card-subtitle class="normal-notice">
+      <span class="number hits">{{ search.result.length }}</span>試合見つかりました
+    </mat-card-subtitle>
+    <mat-card-content>
+
+      <!-- 広告 -->
+      <div class="ad-container">
+        <iframe src="https://rcm-fe.amazon-adsystem.com/e/cm?o=9&p=12&l=ur1&category=sports&banner=09E585E3XP2GENQESJG2&f=ifr&linkID=6a02e3940ed10971112d5986a0c8e7d3&t=chase0213-22&tracking_id=chase0213-22" width="300" height="250" scrolling="no" border="0" marginwidth="0" style="border:none;" frameborder="0"></iframe>
+      </div>
+
+      <mat-list>
+        <mat-list-item *ngFor="let game of search.result">
+          <h4 mat-line>{{game.home}} - {{game.away}}</h4>
+          <p mat-line>{{game.date}} ({{game.dayOfWeek}}) {{game.tipOff}}~ @ {{game.location}}（{{game.area}}）</p>
+          <p mat-line>
+            <button mat-button color="primary" (click)="search.onClickBuyTicket(game)">
+              チケット購入画面
+            </button>
+          </p>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</article>
